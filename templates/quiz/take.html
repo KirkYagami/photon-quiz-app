@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}{{ quiz.title }} - Question {{ question_index + 1 }}{% endblock %}
+
+{% block extra_css %}
+<style>
+pre {
+    background: #2d2d2d;
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+code {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+p code {
+    background: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #e74c3c;
+    font-size: 13px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="quiz-header">
+    <h1>{{ quiz.title }}</h1>
+    <div class="quiz-info">
+        <span class="question-counter">Question {{ question_index + 1 }} of {{ total_questions }}</span>
+        <span class="timer" id="timer">⏱️ <span id="time-display">{{ quiz.timer_minutes }}:00</span></span>
+    </div>
+</div>
+
+<div class="progress-bar">
+    <div class="progress-fill" style="width: {{ ((question_index + 1) / total_questions * 100) }}%"></div>
+</div>
+
+<form method="POST" action="{{ url_for('quiz.submit_answer', quiz_id=quiz_id) }}" id="quiz-form">
+    <input type="hidden" name="question_index" value="{{ question_index }}">
+    
+    <div class="question-card">
+        <div class="question-text">
+            {{ render_markdown(question.text)|safe }}
+        </div>
+        
+        <div class="options">
+            {% for option in question.options %}
+            <label class="option-label {% if current_answer == loop.index0 %}selected{% endif %}">
+                <input type="radio" name="answer" value="{{ loop.index0 }}" 
+                       {% if current_answer == loop.index0 %}checked{% endif %}>
+                <span class="option-text">{{ render_markdown(option)|safe }}</span>
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="navigation-buttons">
+        <div>
+            {% if question_index > 0 %}
+            <button type="submit" name="action" value="prev" class="btn btn-secondary">← Previous</button>
+            {% endif %}
+        </div>
+        
+        <div>
+            <a href="{{ url_for('main.home') }}" class="btn btn-danger" onclick="return confirm('Exit quiz? Progress will be lost.')">Exit Quiz</a>
+            
+            {% if question_index < total_questions - 1 %}
+            <button type="submit" name="action" value="next" class="btn btn-primary">Next →</button>
+            {% else %}
+            <button type="submit" name="action" value="submit" class="btn btn-success" onclick="return confirm('Submit quiz? You can review your answers after submission.')">Submit Quiz</button>
+            {% endif %}
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+<script>
+    // Initialize timer
+    const timer = new QuizTimer({{ quiz.timer_minutes }} * 60, 'time-display', function() {
+        document.getElementById('quiz-form').submit();
+    });
+    timer.start();
+    
+    // Add selection visual feedback
+    document.querySelectorAll('.option-label input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            document.querySelectorAll('.option-label').forEach(label => {
+                label.classList.remove('selected');
+            });
+            this.closest('.option-label').classList.add('selected');
+        });
+    });
+</script>
+{% endblock %}

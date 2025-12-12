@@ -1,0 +1,69 @@
+::Q1:: What is the correct way to create a hyperlink in HTML?{
+=<a href\="url">link text</a>
+~<link>url</link>
+~<href>link text</href>
+~<hyperlink>url</hyperlink>
+}
+
+::Q2:: How do you declare an HTML5 document type?{
+=<!DOCTYPE html>
+~<!doctype html>
+~<html>
+~<head>
+}
+
+::Q3:: Which HTML5 element is used for the main content of a document?{
+=<main>
+~<content>
+~<body>
+~<article>
+}
+
+::Q4:: What does this HTML code create?\n```html\n<input type\="text" placeholder\="Enter name">\n```{
+=A text input field with placeholder text
+~A button with text
+~A text area
+~A label
+}
+
+::Q5:: Which attribute specifies that a script should be executed after the page has finished parsing?{
+=defer
+~async
+~onload
+~delayed
+}
+
+::Q6:: What is the purpose of the <meta charset\="UTF-8"> tag?{
+=Specifies character encoding for the HTML document
+~Sets the page title
+~Links to a stylesheet
+~Defines the document type
+}
+
+::Q7:: Which HTML element represents a self-contained composition?{
+=<article>
+~<section>
+~<div>
+~<container>
+}
+
+::Q8:: How do you create a comment in HTML?{
+=<!-- comment -->
+~// comment
+~/* comment */
+~# comment
+}
+
+::Q9:: Which input type creates a color picker?{
+=<input type\="color">
+~<input type\="picker">
+~<input type\="palette">
+~<color-picker>
+}
+
+::Q10:: What does the 'alt' attribute do in an <img> tag?{
+=Provides alternative text if image cannot be displayed
+~Sets the image alignment
+~Defines the image title
+~Specifies the image format
+}

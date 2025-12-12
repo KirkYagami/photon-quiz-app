@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Complete - {{ quiz.title }}{% endblock %}
+
+{% block content %}
+<div class="result-container">
+    <h1>🎉 Quiz Complete!</h1>
+    
+    <div class="result-card {% if percentage >= 70 %}pass{% else %}fail{% endif %}">
+        <div class="score-display">
+            <div class="score-number">{{ score }} / {{ total }}</div>
+            <div class="score-percentage">{{ percentage }}%</div>
+        </div>
+        
+        <div class="result-status">
+            {% if percentage >= 70 %}
+            <span class="status-icon">✓</span>
+            <span class="status-text">Passed!</span>
+            {% else %}
+            <span class="status-icon">✗</span>
+            <span class="status-text">Keep Practicing!</span>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('quiz.review', quiz_id=quiz_id) }}" class="btn btn-primary">Review Answers</a>
+        <a href="{{ url_for('quiz.start', quiz_id=quiz_id) }}" class="btn btn-success">Retake Quiz</a>
+        <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

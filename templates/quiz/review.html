@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Review - {{ quiz.title }}{% endblock %}
+
+{% block content %}
+<div class="review-container">
+    <h1>📋 Answer Review</h1>
+    
+    <div class="review-summary">
+        <h2>{{ quiz.title }}</h2>
+        <p>Score: {{ result.score }} / {{ result.total }} ({{ result.percentage }}%)</p>
+    </div>
+    
+    <div class="review-questions">
+        {% for item in review_data %}
+        <div class="review-item {% if item.is_correct %}correct{% else %}incorrect{% endif %}">
+            <div class="review-header">
+                <span class="question-number">Question {{ item.number }}</span>
+                <span class="status-badge">
+                    {% if item.is_correct %}
+                    ✓ Correct
+                    {% else %}
+                    ✗ Incorrect
+                    {% endif %}
+                </span>
+            </div>
+            
+            <div class="review-question">
+                {{ render_markdown(item.question.text)|safe }}
+            </div>
+            
+            <div class="review-options">
+                {% for option in item.question.options %}
+                <div class="review-option 
+                    {% if loop.index0 == item.user_answer %}user-answer{% endif %}
+                    {% if loop.index0 == item.correct_answer %}correct-answer{% endif %}">
+                    <span class="option-indicator">
+                        {% if loop.index0 == item.correct_answer %}✓{% endif %}
+                        {% if loop.index0 == item.user_answer and not item.is_correct %}✗{% endif %}
+                    </span>
+                    <span class="option-text">{{ render_markdown(option)|safe }}</span>
+                    <span class="option-label">
+                        {% if loop.index0 == item.correct_answer %}(Correct Answer){% endif %}
+                        {% if loop.index0 == item.user_answer and item.user_answer != item.correct_answer %}(Your Answer){% endif %}
+                    </span>
+                </div>
+                {% endfor %}
+                
+                {% if item.user_answer == -1 %}
+                <div class="review-note">You did not answer this question.</div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="action-buttons">
+        <a href="{{ url_for('quiz.start', quiz_id=quiz_id) }}" class="btn btn-success">Retake Quiz</a>
+        <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
