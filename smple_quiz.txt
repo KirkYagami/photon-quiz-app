@@ -1,0 +1,93 @@
+## GIFT FORMAT
+
+```GIFT
+::Q1:: What is the correct way to create a hyperlink in HTML?{
+=<a href\="url">link text</a>
+~<link>url</link>
+~<href>link text</href>
+~<hyperlink>url</hyperlink>
+}
+
+::Q2:: How do you declare an HTML5 document type?{
+=<!DOCTYPE html>
+~<!doctype html>
+~<html>
+~<head>
+}
+
+::Q3:: Which HTML5 element is used for the main content of a document?{
+=<main>
+~<content>
+~<body>
+~<article>
+}
+
+::Q4:: What does this HTML code create?\n```html\n<input type\="text" placeholder\="Enter name">\n```{
+=A text input field with placeholder text
+~A button with text
+~A text area
+~A label
+}
+
+::Q5:: Which attribute specifies that a script should be executed after the page has finished parsing?{
+=defer
+~async
+~onload
+~delayed
+}
+```
+
+
+## YAML FORMAT
+
+```yaml
+- question: "Which feature prevents unnecessary renders in child components?"
+  options:
+    - "StrictMode"
+    - "React.memo"
+    - "useEffect"
+    - "Portals"
+  correct: 1
+
+- question: "Default behavior of useEffect without dependencies?"
+  options:
+    - "Runs only on mount"
+    - "Runs on every render"
+    - "Runs only on unmount"
+    - "Never runs"
+  correct: 1
+
+- question: "componentWillUnmount is used for:"
+  options:
+    - "Initial API calls"
+    - "Cleanup"
+    - "Setting initial state"
+    - "Rendering UI"
+  correct: 1
+
+- question: "React components must return:"
+  options:
+    - "Numbers only"
+    - "Strings only"
+    - "A single React element or null"
+    - "Multiple root nodes"
+  correct: 2
+
+- question: "Which hook stores values without triggering re-renders?"
+  options:
+    - "useState"
+    - "useRef"
+    - "useMemo"
+    - "useEffect"
+  correct: 1
+
+- question: "React is declarative because:"
+  options:
+    - "It directly manipulates DOM"
+    - "You describe what UI should look like, not how to update it"
+    - "It uses classes"
+    - "It avoids JavaScript"
+  correct: 1
+
+```
+
