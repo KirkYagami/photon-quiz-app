@@ -13,9 +13,15 @@ def create_app():
     app.register_blueprint(admin)
     app.register_blueprint(quiz)
     
+    # Add template filters
+    from utils.helpers import render_markdown
+    app.jinja_env.filters['markdown'] = render_markdown
+    
     return app
 
 if __name__ == '__main__':
     app = create_app()
     print("="*50)
-    app.run(debug=True, host='0.0.0.0',port=5000)
+    print("Starting QuizFlow in development mode")
+    print("="*50)
+    app.run(debug=True, host='0.0.0.0', port=5000)

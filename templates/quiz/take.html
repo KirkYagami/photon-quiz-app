@@ -31,7 +31,7 @@ p code {
     <h1>{{ quiz.title }}</h1>
     <div class="quiz-info">
         <span class="question-counter">Question {{ question_index + 1 }} of {{ total_questions }}</span>
-        <span class="timer" id="timer">⏱️ <span id="time-display">{{ quiz.timer_minutes }}:00</span></span>
+        <span class="timer" id="timer-container">⏱️ <span id="time-display">--:--</span></span>
     </div>
 </div>
 
@@ -59,19 +59,25 @@ p code {
     </div>
     
     <div class="navigation-buttons">
-        <div>
+        <div class="nav-btn-group">
             {% if question_index > 0 %}
             <button type="submit" name="action" value="prev" class="btn btn-secondary">← Previous</button>
             {% endif %}
         </div>
         
-        <div>
-            <a href="{{ url_for('main.home') }}" class="btn btn-danger" onclick="return confirm('Exit quiz? Progress will be lost.')">Exit Quiz</a>
+        <div class="nav-btn-group">
+            <a href="{{ url_for('main.home') }}" class="btn btn-danger" 
+               onclick="return confirm('Exit quiz? Your progress will be saved and timer will continue.')">
+               Exit
+            </a>
             
             {% if question_index < total_questions - 1 %}
             <button type="submit" name="action" value="next" class="btn btn-primary">Next →</button>
             {% else %}
-            <button type="submit" name="action" value="submit" class="btn btn-success" onclick="return confirm('Submit quiz? You can review your answers after submission.')">Submit Quiz</button>
+            <button type="submit" name="action" value="submit" class="btn btn-success" 
+                    onclick="return confirm('Submit quiz? You can review your answers after submission.')">
+                Submit Quiz
+            </button>
             {% endif %}
         </div>
     </div>
@@ -81,10 +87,15 @@ p code {
 {% block extra_js %}
 <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
 <script>
-    // Initialize timer
-    const timer = new QuizTimer({{ quiz.timer_minutes }} * 60, 'time-display', function() {
-        document.getElementById('quiz-form').submit();
-    });
+    // Initialize timer with quiz ID for persistence
+    const timer = new QuizTimer(
+        {{ quiz_id }}, 
+        {{ quiz.timer_minutes }}, 
+        'time-display', 
+        function() {
+            document.getElementById('quiz-form').submit();
+        }
+    );
     timer.start();
     
     // Add selection visual feedback
@@ -95,6 +106,11 @@ p code {
             });
             this.closest('.option-label').classList.add('selected');
         });
+    });
+    
+    // Cleanup timer on page unload (but keep localStorage)
+    window.addEventListener('beforeunload', function() {
+        timer.stop();
     });
 </script>
 {% endblock %}

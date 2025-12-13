@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Admin Dashboard{% endblock %}
+{% block title %}Admin Dashboard - QuizFlow{% endblock %}
 
 {% block content %}
-<div class="header">
+<div class="page-header">
     <h1>⚙️ Admin Dashboard</h1>
-    <div>
-        <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Home</a>
+    <div class="header-actions">
         <a href="{{ url_for('admin.logout') }}" class="btn btn-danger">Logout</a>
     </div>
 </div>
@@ -39,7 +38,7 @@
             <textarea id="content" name="content" rows="15" required placeholder="Paste your YAML or GIFT format questions here..."></textarea>
         </div>
         
-        <button type="submit" class="btn btn-success">Upload Quiz</button>
+        <button type="submit" class="btn btn-success btn-block">📤 Upload Quiz</button>
     </form>
 </div>
 
@@ -67,7 +66,7 @@
                     <td>
                         <a href="{{ url_for('quiz.start', quiz_id=quiz.id) }}" class="btn btn-sm btn-primary">Preview</a>
                         <form method="POST" action="{{ url_for('admin.delete', quiz_id=quiz.id) }}" style="display: inline;">
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this quiz?')">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this quiz and all its results?')">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -76,7 +75,10 @@
         </table>
     </div>
     {% else %}
-    <p>No quizzes yet. Upload one above!</p>
+    <div class="empty-state">
+        <div class="empty-state-icon">📝</div>
+        <p>No quizzes yet. Upload one above!</p>
+    </div>
     {% endif %}
 </div>
 
@@ -108,7 +110,10 @@
         </table>
     </div>
     {% else %}
-    <p>No results yet.</p>
+    <div class="empty-state">
+        <div class="empty-state-icon">📊</div>
+        <p>No results yet.</p>
+    </div>
     {% endif %}
 </div>
 

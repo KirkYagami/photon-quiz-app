@@ -39,7 +39,7 @@
                         {% if loop.index0 == item.user_answer and not item.is_correct %}✗{% endif %}
                     </span>
                     <span class="option-text">{{ render_markdown(option)|safe }}</span>
-                    <span class="option-label">
+                    <span class="option-label-text">
                         {% if loop.index0 == item.correct_answer %}(Correct Answer){% endif %}
                         {% if loop.index0 == item.user_answer and item.user_answer != item.correct_answer %}(Your Answer){% endif %}
                     </span>

@@ -3,22 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Quiz App{% endblock %}</title>
+    <title>{% block title %}QuizFlow{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        {% block content %}{% endblock %}
-    </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{{ url_for('main.home') }}" class="navbar-brand">
+                <span>⚡</span> QuizFlow
+            </a>
+            <div class="navbar-menu">
+                {% if request.path == '/' %}
+                    <a href="{{ url_for('main.home') }}" class="nav-link active">Home</a>
+                {% else %}
+                    <a href="{{ url_for('main.home') }}" class="nav-link">Home</a>
+                {% endif %}
+                
+                {% if session.get('admin') %}
+                    <a href="{{ url_for('admin.dashboard') }}" class="nav-link">Dashboard</a>
+                    <a href="{{ url_for('admin.logout') }}" class="nav-link">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('admin.login') }}" class="nav-link">Admin</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                Made with <span class="footer-heart">❤</span> by Nikhil
+            </p>
+        </div>
+    </footer>
     
     {% block extra_js %}{% endblock %}
 </body>

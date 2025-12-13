@@ -6,3 +6,9 @@ class Config:
     ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD') or 'admin123'
     DEFAULT_QUIZ_TIMER = 30  # minutes
     PASSING_SCORE = 70  # percentage
+    
+    # Session config for production
+    SESSION_COOKIE_SECURE = os.environ.get('FLASK_ENV') == 'production'
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    PERMANENT_SESSION_LIFETIME = 7200  # 2 hours

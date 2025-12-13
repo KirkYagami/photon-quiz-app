@@ -29,4 +29,12 @@
         <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Back to Home</a>
     </div>
 </div>
+
+{% if clear_timer %}
+<script>
+    // Clear timer state when quiz is completed
+    localStorage.removeItem('quiz_{{ quiz_id }}_start_time');
+    localStorage.removeItem('quiz_{{ quiz_id }}_timer');
+</script>
+{% endif %}
 {% endblock %}

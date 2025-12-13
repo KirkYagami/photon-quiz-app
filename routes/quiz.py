@@ -115,13 +115,15 @@ def complete(quiz_id):
     }
     session.modified = True
     
+    # Clear timer from localStorage (will be done on client side)
     return render_template(
         'quiz/result.html',
         quiz=quiz_data,
         quiz_id=quiz_id,
         score=score,
         total=total,
-        percentage=percentage
+        percentage=percentage,
+        clear_timer=True
     )
 
 @quiz.route('/<int:quiz_id>/review')
