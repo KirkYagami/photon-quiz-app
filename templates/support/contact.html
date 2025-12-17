@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - QuizFlow{% endblock %}
+
+{% block content %}
+<div class="contact-page">
+    <div class="contact-header">
+        <h1>📧 Get in Touch</h1>
+        <p class="contact-subtitle">Have questions, feedback, or suggestions? We'd love to hear from you!</p>
+    </div>
+
+    <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-card">
+            <h2>Send us a Message</h2>
+            <form method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a subject...</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                        <option value="Technical Issue">Technical Issue</option>
+                        <option value="Feature Request">Feature Request</option>
+                        <option value="Quiz Content">Quiz Content Suggestion</option>
+                        <option value="Donation Query">Donation Query</option>
+                        <option value="Partnership">Partnership Opportunity</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Your Message *</label>
+                    <textarea id="message" name="message" rows="6" required 
+                              placeholder="Tell us what's on your mind..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span>📤</span> Send Message
+                </button>
+            </form>
+        </div>
+
+        <!-- Contact Info & FAQ -->
+        <div class="contact-info-section">
+            <!-- Quick Info -->
+            <div class="info-card">
+                <h3>💬 Quick Info</h3>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-icon">⏱️</span>
+                        <div>
+                            <strong>Response Time</strong>
+                            <p>We typically respond within 24-48 hours</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🌍</span>
+                        <div>
+                            <strong>Location</strong>
+                            <p>Based in India, serving globally</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">💖</span>
+                        <div>
+                            <strong>Support Us</strong>
+                            <p><a href="{{ url_for('support.donate') }}">Consider donating</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="info-card">
+                <h3>❓ Frequently Asked</h3>
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>How do I report a bug?</summary>
+                        <p>Use the contact form above and select "Technical Issue" as the subject. 
+                           Please include as much detail as possible.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can I contribute quiz content?</summary>
+                        <p>Yes! We welcome quality quiz content. Contact us with your ideas and 
+                           we'll discuss how to collaborate.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Is QuizFlow really free?</summary>
+                        <p>Yes! QuizFlow is completely free for all users. We're supported by 
+                           generous donations from our community.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>How can I support QuizFlow?</summary>
+                        <p>You can support us by <a href="{{ url_for('support.donate') }}">donating</a>, 
+                           sharing with friends, or providing feedback!</p>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Social Links (Optional) -->
+            <div class="info-card social-card">
+                <h3>🔗 Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Twitter">
+                        <span class="social-icon">🐦</span> Twitter
+                    </a>
+                    <a href="#" class="social-link" title="GitHub">
+                        <span class="social-icon">💻</span> GitHub
+                    </a>
+                    <a href="#" class="social-link" title="LinkedIn">
+                        <span class="social-icon">💼</span> LinkedIn
+                    </a>
+                </div>
+                <p class="social-note">Coming soon! Follow us for updates.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

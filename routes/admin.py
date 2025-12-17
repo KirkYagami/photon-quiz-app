@@ -41,7 +41,33 @@ def dashboard():
     """Admin dashboard"""
     quizzes = db.get_all_quizzes()
     results = db.get_results(limit=20)
-    return render_template('admin/dashboard.html', quizzes=quizzes, results=results)
+    
+    # Get unread message count
+    messages = db.get_contact_messages(limit=5, unread_only=True)
+    unread_count = len(messages)
+    
+    return render_template('admin/dashboard.html', 
+                         quizzes=quizzes, 
+                         results=results,
+                         unread_count=unread_count)
+
+@admin.route('/messages')
+@admin_required
+def messages():
+    """View contact messages"""
+    all_messages = db.get_contact_messages(limit=100)
+    return render_template('admin/messages.html', messages=all_messages)
+
+@admin.route('/messages/<int:message_id>/read', methods=['POST'])
+@admin_required
+def mark_read(message_id):
+    """Mark message as read"""
+    try:
+        db.mark_message_read(message_id)
+        flash('Message marked as read', 'success')
+    except Exception as e:
+        flash('Error updating message', 'error')
+    return redirect(url_for('admin.messages'))
 
 @admin.route('/upload', methods=['POST'])
 @admin_required

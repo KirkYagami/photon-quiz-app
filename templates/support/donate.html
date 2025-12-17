@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block title %}Support QuizFlow - Donate{% endblock %}
+
+{% block content %}
+<div class="support-page">
+    <div class="support-header">
+        <h1>💖 Support QuizFlow</h1>
+        <p class="support-subtitle">Help us keep this platform free and accessible for everyone</p>
+    </div>
+
+    <div class="support-grid">
+        <!-- Why Support Section -->
+        <div class="support-card highlight-card">
+            <div class="card-icon">🌟</div>
+            <h2>Why Your Support Matters</h2>
+            <ul class="support-list">
+                <li>✨ Keep QuizFlow completely free for students</li>
+                <li>🚀 Help us add new features and improvements</li>
+                <li>💻 Cover hosting and server costs</li>
+                <li>📚 Support educational content creation</li>
+                <li>🌍 Make learning accessible to everyone</li>
+            </ul>
+        </div>
+
+        <!-- Impact Section -->
+        <div class="support-card">
+            <div class="card-icon">📊</div>
+            <h2>Our Impact</h2>
+            <div class="impact-stats">
+                <div class="stat">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Students Served</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Always Available</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">Free</div>
+                    <div class="stat-label">Forever</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Methods Section -->
+        <div class="support-card payment-card">
+            <div class="card-icon">💳</div>
+            <h2>Support Us</h2>
+            
+            <!-- Google Pay -->
+            <div class="payment-method">
+                <h3>📱 Google Pay / UPI</h3>
+                <div class="qr-container">
+                    <img src="{{ url_for('static', filename='images/gpay-qr.png') }}" 
+                         alt="Google Pay QR Code" 
+                         class="qr-code"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="qr-placeholder" style="display: none;">
+                        <p>📱 UPI ID: your-upi-id@paytm</p>
+                        <p class="qr-note">Scan to pay via any UPI app</p>
+                    </div>
+                </div>
+                <p class="payment-note">Scan with any UPI app (Google Pay, Paytm, PhonePe, etc.)</p>
+            </div>
+
+            <!-- International Options -->
+            <div class="payment-method">
+                <h3>🌍 International Support</h3>
+                <div class="coming-soon-section">
+                    <div class="coming-soon-badge">Coming Soon</div>
+                    <div class="payment-options">
+                        <div class="payment-option">
+                            <span class="payment-logo">💳</span>
+                            <span>Stripe</span>
+                        </div>
+                        <div class="payment-option">
+                            <span class="payment-logo">☕</span>
+                            <span>Ko-fi</span>
+                        </div>
+                        <div class="payment-option">
+                            <span class="payment-logo">🎁</span>
+                            <span>PayPal</span>
+                        </div>
+                    </div>
+                    <p class="coming-soon-text">We're working on adding more payment options!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thank You Message -->
+        <div class="support-card gratitude-card">
+            <div class="card-icon">🙏</div>
+            <h2>Thank You!</h2>
+            <p class="gratitude-text">
+                Your generous support helps us maintain and improve QuizFlow. 
+                Every contribution, no matter how small, makes a huge difference 
+                in keeping this platform free and accessible for students worldwide.
+            </p>
+            <div class="gratitude-quote">
+                <p>"Education is the most powerful weapon which you can use to change the world."</p>
+                <span>- Nelson Mandela</span>
+            </div>
+        </div>
+
+        <!-- Other Ways to Help -->
+        <div class="support-card">
+            <div class="card-icon">🤝</div>
+            <h2>Other Ways to Help</h2>
+            <div class="help-options">
+                <div class="help-option">
+                    <span class="help-icon">⭐</span>
+                    <div>
+                        <strong>Share with Friends</strong>
+                        <p>Spread the word about QuizFlow</p>
+                    </div>
+                </div>
+                <div class="help-option">
+                    <span class="help-icon">💡</span>
+                    <div>
+                        <strong>Send Feedback</strong>
+                        <p>Help us improve with your suggestions</p>
+                    </div>
+                </div>
+                <div class="help-option">
+                    <span class="help-icon">🐛</span>
+                    <div>
+                        <strong>Report Issues</strong>
+                        <p>Let us know if something isn't working</p>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ url_for('support.contact') }}" class="btn btn-primary btn-block">Get in Touch</a>
+        </div>
+
+        <!-- Transparency Section -->
+        <div class="support-card transparency-card">
+            <div class="card-icon">📈</div>
+            <h2>Where Your Money Goes</h2>
+            <div class="expense-breakdown">
+                <div class="expense-item">
+                    <div class="expense-bar" style="width: 40%"></div>
+                    <span>Server Hosting - 40%</span>
+                </div>
+                <div class="expense-item">
+                    <div class="expense-bar" style="width: 30%"></div>
+                    <span>Development - 30%</span>
+                </div>
+                <div class="expense-item">
+                    <div class="expense-bar" style="width: 20%"></div>
+                    <span>Maintenance - 20%</span>
+                </div>
+                <div class="expense-item">
+                    <div class="expense-bar" style="width: 10%"></div>
+                    <span>Community Support - 10%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="support-cta">
+        <h2>Ready to Make a Difference?</h2>
+        <p>Your support keeps QuizFlow running and growing</p>
+        <div class="cta-buttons">
+            <a href="#payment-card" class="btn btn-success btn-lg">💖 Donate Now</a>
+            <a href="{{ url_for('main.home') }}" class="btn btn-secondary btn-lg">← Back to Quizzes</a>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Scroll to payment section smoothly */
+html {
+    scroll-behavior: smooth;
+}
+</style>
+{% endblock %}

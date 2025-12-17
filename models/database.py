@@ -20,10 +20,10 @@ class Database:
             conn = sqlite3.connect(self.db_path, check_same_thread=False)
             conn.row_factory = sqlite3.Row
             # Performance optimizations
-            conn.execute('PRAGMA journal_mode=WAL')  # Write-Ahead Logging
-            conn.execute('PRAGMA synchronous=NORMAL')  # Faster writes
-            conn.execute('PRAGMA cache_size=-64000')  # 64MB cache
-            conn.execute('PRAGMA temp_store=MEMORY')  # Memory temp storage
+            conn.execute('PRAGMA journal_mode=WAL')
+            conn.execute('PRAGMA synchronous=NORMAL')
+            conn.execute('PRAGMA cache_size=-64000')
+            conn.execute('PRAGMA temp_store=MEMORY')
             self._local.connection = conn
         
         try:
@@ -49,7 +49,7 @@ class Database:
                 )
             ''')
             
-            # Results table with indexes
+            # Results table
             cursor.execute('''
                 CREATE TABLE IF NOT EXISTS results (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -64,7 +64,20 @@ class Database:
                 )
             ''')
             
-            # Create indexes for better performance
+            # Contact messages table
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS contact_messages (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    email TEXT NOT NULL,
+                    subject TEXT NOT NULL,
+                    message TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    read BOOLEAN DEFAULT 0
+                )
+            ''')
+            
+            # Create indexes
             cursor.execute('''
                 CREATE INDEX IF NOT EXISTS idx_results_quiz_id 
                 ON results(quiz_id)
@@ -73,6 +86,11 @@ class Database:
             cursor.execute('''
                 CREATE INDEX IF NOT EXISTS idx_results_taken_at 
                 ON results(taken_at DESC)
+            ''')
+            
+            cursor.execute('''
+                CREATE INDEX IF NOT EXISTS idx_contact_messages_created_at 
+                ON contact_messages(created_at DESC)
             ''')
     
     def create_quiz(self, title, questions, timer_minutes=30):
@@ -153,3 +171,39 @@ class Database:
                 'answers': json.loads(row['answers']),
                 'taken_at': row['taken_at']
             } for row in rows]
+    
+    def save_contact_message(self, name, email, subject, message):
+        """Save contact form message"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                'INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)',
+                (name, email, subject, message)
+            )
+            return cursor.lastrowid
+    
+    def get_contact_messages(self, limit=50, unread_only=False):
+        """Get contact messages"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            if unread_only:
+                cursor.execute('SELECT * FROM contact_messages WHERE read = 0 ORDER BY created_at DESC LIMIT ?', (limit,))
+            else:
+                cursor.execute('SELECT * FROM contact_messages ORDER BY created_at DESC LIMIT ?', (limit,))
+            rows = cursor.fetchall()
+            
+            return [{
+                'id': row['id'],
+                'name': row['name'],
+                'email': row['email'],
+                'subject': row['subject'],
+                'message': row['message'],
+                'created_at': row['created_at'],
+                'read': row['read']
+            } for row in rows]
+    
+    def mark_message_read(self, message_id):
+        """Mark contact message as read"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute('UPDATE contact_messages SET read = 1 WHERE id = ?', (message_id,))

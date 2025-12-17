@@ -6,6 +6,13 @@
 <div class="page-header">
     <h1>⚙️ Admin Dashboard</h1>
     <div class="header-actions">
+        {% if unread_count > 0 %}
+        <a href="{{ url_for('admin.messages') }}" class="btn btn-primary">
+            📧 Messages <span class="badge">{{ unread_count }}</span>
+        </a>
+        {% else %}
+        <a href="{{ url_for('admin.messages') }}" class="btn btn-secondary">📧 Messages</a>
+        {% endif %}
         <a href="{{ url_for('admin.logout') }}" class="btn btn-danger">Logout</a>
     </div>
 </div>
@@ -149,4 +156,17 @@
 }</pre>
     </details>
 </div>
+
+<style>
+.badge {
+    display: inline-block;
+    background: var(--danger);
+    color: white;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 5px;
+}
+</style>
 {% endblock %}

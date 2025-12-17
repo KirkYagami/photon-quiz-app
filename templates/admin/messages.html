@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Messages - Admin{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📧 Contact Messages</h1>
+    <div class="header-actions">
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+</div>
+
+<div class="admin-section">
+    {% if messages %}
+    <div class="messages-list">
+        {% for msg in messages %}
+        <div class="message-card {% if not msg.read %}unread{% endif %}">
+            <div class="message-header">
+                <div class="message-info">
+                    <h3>{{ msg.subject }}</h3>
+                    <div class="message-meta">
+                        <span class="message-from">
+                            <strong>{{ msg.name }}</strong> 
+                            &lt;{{ msg.email }}&gt;
+                        </span>
+                        <span class="message-date">{{ msg.created_at[:16] }}</span>
+                    </div>
+                </div>
+                {% if not msg.read %}
+                <form method="POST" action="{{ url_for('admin.mark_read', message_id=msg.id) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-sm btn-primary">Mark as Read</button>
+                </form>
+                {% else %}
+                <span class="read-badge">✓ Read</span>
+                {% endif %}
+            </div>
+            <div class="message-body">
+                <p>{{ msg.message }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <h3>No messages yet</h3>
+        <p>Contact form submissions will appear here.</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.message-card {
+    background: var(--white);
+    border: 2px solid var(--light);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.2s;
+}
+
+.message-card.unread {
+    border-left: 4px solid var(--primary);
+    background: #f0f8ff;
+}
+
+.message-card:hover {
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--light);
+}
+
+.message-info h3 {
+    margin: 0 0 8px 0;
+    color: var(--dark);
+    font-size: 18px;
+}
+
+.message-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+    color: var(--text-light);
+    flex-wrap: wrap;
+}
+
+.message-from {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.message-body p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--text);
+    white-space: pre-wrap;
+}
+
+.read-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--success);
+    color: white;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .message-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+</style>
+{% endblock %}

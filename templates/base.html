@@ -21,6 +21,8 @@
                     <a href="{{ url_for('main.home') }}" class="nav-link">Home</a>
                 {% endif %}
                 
+                <a href="{{ url_for('support.contact') }}" class="nav-link">Contact</a>
+                
                 {% if session.get('admin') %}
                     <a href="{{ url_for('admin.dashboard') }}" class="nav-link">Dashboard</a>
                     <a href="{{ url_for('admin.logout') }}" class="nav-link">Logout</a>
@@ -46,12 +48,62 @@
         </div>
     </main>
     
+    <!-- Support Marquee -->
+    <div class="support-marquee">
+        <div class="marquee-content">
+            <span class="marquee-item">
+                ☕ Help keep QuizFlow free and running!
+            </span>
+            <span class="marquee-item">
+                💝 Your support makes a difference
+            </span>
+            <span class="marquee-item">
+                🙏 Consider donating to support this platform
+            </span>
+            <span class="marquee-item">
+                ⭐ Every contribution helps us grow
+            </span>
+            <span class="marquee-item">
+                <a href="{{ url_for('support.donate') }}" class="marquee-link">
+                    💖 Support QuizFlow →
+                </a>
+            </span>
+            <!-- Duplicate for seamless loop -->
+            <span class="marquee-item">
+                ☕ Help keep QuizFlow free and running!
+            </span>
+            <span class="marquee-item">
+                💝 Your support makes a difference
+            </span>
+            <span class="marquee-item">
+                🙏 Consider donating to support this platform
+            </span>
+            <span class="marquee-item">
+                ⭐ Every contribution helps us grow
+            </span>
+            <span class="marquee-item">
+                <a href="{{ url_for('support.donate') }}" class="marquee-link">
+                    💖 Support QuizFlow →
+                </a>
+            </span>
+        </div>
+    </div>
+    
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
-            <p class="footer-text">
-                Made with <span class="footer-heart">❤</span> by Nikhil
-            </p>
+            <div class="footer-content">
+                <p class="footer-text">
+                    Made with <span class="footer-heart">❤</span> by Nikhil
+                </p>
+                <div class="footer-links">
+                    <a href="{{ url_for('support.contact') }}" class="footer-link">Contact</a>
+                    <span class="footer-separator">•</span>
+                    <a href="{{ url_for('support.donate') }}" class="footer-link">
+                        <span class="donate-icon">💖</span> Support
+                    </a>
+                </div>
+            </div>
         </div>
     </footer>
     
