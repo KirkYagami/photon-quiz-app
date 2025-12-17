@@ -29,6 +29,8 @@
                 {% else %}
                     <a href="{{ url_for('admin.login') }}" class="nav-link">Admin</a>
                 {% endif %}
+                
+                <a href="{{ url_for('support.donate') }}" class="nav-link support-btn">💖 Support</a>
             </div>
         </div>
     </nav>
@@ -48,44 +50,29 @@
         </div>
     </main>
     
-    <!-- Support Marquee -->
-    <div class="support-marquee">
-        <div class="marquee-content">
-            <span class="marquee-item">
-                ☕ Help keep QuizFlow free and running!
-            </span>
-            <span class="marquee-item">
-                💝 Your support makes a difference
-            </span>
-            <span class="marquee-item">
-                🙏 Consider donating to support this platform
-            </span>
-            <span class="marquee-item">
-                ⭐ Every contribution helps us grow
-            </span>
-            <span class="marquee-item">
-                <a href="{{ url_for('support.donate') }}" class="marquee-link">
-                    💖 Support QuizFlow →
+    <!-- Support Marquee with Button -->
+    <div class="support-marquee-wrapper">
+        <div class="support-marquee-container">
+            <div class="support-marquee">
+                <div class="marquee-content">
+                    <span class="marquee-item">☕ Help keep QuizFlow free and running!</span>
+                    <span class="marquee-item">💝 Your support makes a difference</span>
+                    <span class="marquee-item">🙏 Consider donating to support this platform</span>
+                    <span class="marquee-item">⭐ Every contribution helps us grow</span>
+                    <span class="marquee-item">💖 Support QuizFlow today</span>
+                    <!-- Duplicate for seamless loop -->
+                    <span class="marquee-item">☕ Help keep QuizFlow free and running!</span>
+                    <span class="marquee-item">💝 Your support makes a difference</span>
+                    <span class="marquee-item">🙏 Consider donating to support this platform</span>
+                    <span class="marquee-item">⭐ Every contribution helps us grow</span>
+                    <span class="marquee-item">💖 Support QuizFlow today</span>
+                </div>
+            </div>
+            <div class="support-marquee-button">
+                <a href="{{ url_for('support.donate') }}" class="btn-marquee-support">
+                    💖 Support Us
                 </a>
-            </span>
-            <!-- Duplicate for seamless loop -->
-            <span class="marquee-item">
-                ☕ Help keep QuizFlow free and running!
-            </span>
-            <span class="marquee-item">
-                💝 Your support makes a difference
-            </span>
-            <span class="marquee-item">
-                🙏 Consider donating to support this platform
-            </span>
-            <span class="marquee-item">
-                ⭐ Every contribution helps us grow
-            </span>
-            <span class="marquee-item">
-                <a href="{{ url_for('support.donate') }}" class="marquee-link">
-                    💖 Support QuizFlow →
-                </a>
-            </span>
+            </div>
         </div>
     </div>
     
@@ -96,13 +83,6 @@
                 <p class="footer-text">
                     Made with <span class="footer-heart">❤</span> by Nikhil
                 </p>
-                <div class="footer-links">
-                    <a href="{{ url_for('support.contact') }}" class="footer-link">Contact</a>
-                    <span class="footer-separator">•</span>
-                    <a href="{{ url_for('support.donate') }}" class="footer-link">
-                        <span class="donate-icon">💖</span> Support
-                    </a>
-                </div>
             </div>
         </div>
     </footer>

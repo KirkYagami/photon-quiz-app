@@ -17,7 +17,7 @@ if __name__ == '__main__':
     print("="*60)
     
     # Set production environment
-    os.environ['FLASK_ENV'] = 'production'
+    os.environ['FLASK_ENV'] = 'development'
     
     serve(
         app,
