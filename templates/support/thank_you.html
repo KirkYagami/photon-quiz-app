@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}Thank You - QuizFlow{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto text-center animate-fade-in">
+    <!-- Success Icon -->
+    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full mb-8 shadow-xl">
+        <i data-lucide="heart" class="w-12 h-12 text-white"></i>
+    </div>
+
+    <!-- Thank You Message -->
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Thank You!</h1>
+    <p class="text-xl text-gray-600 mb-8">Your generous support means the world to us</p>
+
+    <!-- Appreciation Card -->
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-xl p-8 mb-8">
+        <div class="prose prose-lg max-w-none">
+            <p class="text-gray-700 mb-6">
+                Your contribution helps keep QuizFlow free and accessible for students worldwide. 
+                Thanks to supporters like you, we can continue to provide high-quality educational 
+                resources to everyone who needs them.
+            </p>
+            
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+                <div class="flex items-start space-x-4">
+                    <i data-lucide="sparkles" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-1"></i>
+                    <div class="text-left">
+                        <h3 class="font-semibold text-blue-900 mb-2">What Your Support Enables:</h3>
+                        <ul class="text-sm text-blue-800 space-y-2">
+                            <li class="flex items-center">
+                                <i data-lucide="check" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                                <span>Reliable server hosting and infrastructure</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i data-lucide="check" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                                <span>Development of new features and improvements</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i data-lucide="check" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                                <span>Creation of quality educational content</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i data-lucide="check" class="w-4 h-4 mr-2 flex-shrink-0"></i>
+                                <span>Keeping QuizFlow completely free for all users</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Share -->
+    <div class="bg-gradient-to-r from-violet-50 to-purple-50 rounded-xl border border-violet-200 p-6 mb-8">
+        <h3 class="text-lg font-semibold text-gray-900 mb-3">Help Us Grow!</h3>
+        <p class="text-gray-600 text-sm mb-4">Share QuizFlow with your friends and help more students access free education</p>
+        <div class="flex flex-wrap justify-center gap-3">
+            <button class="inline-flex items-center px-4 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors shadow-sm border border-gray-200">
+                <i data-lucide="twitter" class="w-4 h-4 mr-2"></i>
+                <span>Share on Twitter</span>
+            </button>
+            <button class="inline-flex items-center px-4 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors shadow-sm border border-gray-200">
+                <i data-lucide="facebook" class="w-4 h-4 mr-2"></i>
+                <span>Share on Facebook</span>
+            </button>
+            <button class="inline-flex items-center px-4 py-2 bg-white text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors shadow-sm border border-gray-200">
+                <i data-lucide="linkedin" class="w-4 h-4 mr-2"></i>
+                <span>Share on LinkedIn</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="{{ url_for('main.home') }}" 
+           class="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-medium hover:from-blue-700 hover:to-blue-600 transition-all duration-200 shadow-sm hover:shadow-md">
+            <i data-lucide="home" class="w-5 h-5 mr-2"></i>
+            <span>Back to Home</span>
+        </a>
+        
+        <a href="{{ url_for('support.contact') }}" 
+           class="inline-flex items-center justify-center px-8 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+            <i data-lucide="mail" class="w-5 h-5 mr-2"></i>
+            <span>Get in Touch</span>
+        </a>
+    </div>
+
+    <!-- Quote -->
+    <div class="mt-12 pt-8 border-t border-gray-200">
+        <blockquote class="text-gray-600 italic mb-4">
+            "Education is the most powerful weapon which you can use to change the world."
+        </blockquote>
+        <p class="text-sm text-gray-500">- Nelson Mandela</p>
+    </div>
+</div>
+
+<script>
+    lucide.createIcons();
+</script>
+{% endblock %}

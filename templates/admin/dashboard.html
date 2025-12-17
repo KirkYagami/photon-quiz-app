@@ -3,170 +3,283 @@
 {% block title %}Admin Dashboard - QuizFlow{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <h1>⚙️ Admin Dashboard</h1>
-    <div class="header-actions">
-        {% if unread_count > 0 %}
-        <a href="{{ url_for('admin.messages') }}" class="btn btn-primary">
-            📧 Messages <span class="badge">{{ unread_count }}</span>
-        </a>
-        {% else %}
-        <a href="{{ url_for('admin.messages') }}" class="btn btn-secondary">📧 Messages</a>
-        {% endif %}
-        <a href="{{ url_for('admin.logout') }}" class="btn btn-danger">Logout</a>
+<div class="animate-fade-in">
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+            <p class="text-gray-600">Manage quizzes, view results, and check messages</p>
+        </div>
+        <div class="flex items-center space-x-3 mt-4 md:mt-0">
+            {% if unread_count > 0 %}
+            <a href="{{ url_for('admin.messages') }}" 
+               class="relative inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+                <span>Messages</span>
+                <span class="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full">
+                    {{ unread_count }}
+                </span>
+            </a>
+            {% else %}
+            <a href="{{ url_for('admin.messages') }}" 
+               class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+                <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+                <span>Messages</span>
+            </a>
+            {% endif %}
+            <a href="{{ url_for('admin.logout') }}" 
+               class="inline-flex items-center px-4 py-2 bg-red-50 text-red-600 rounded-lg font-medium hover:bg-red-100 transition-colors">
+                <i data-lucide="log-out" class="w-4 h-4 mr-2"></i>
+                <span>Logout</span>
+            </a>
+        </div>
     </div>
-</div>
 
-<div class="admin-section">
-    <h2>📤 Upload New Quiz</h2>
-    <form method="POST" action="{{ url_for('admin.upload') }}" class="upload-form">
-        <div class="form-row">
-            <div class="form-group">
-                <label for="title">Quiz Title *</label>
-                <input type="text" id="title" name="title" required placeholder="e.g., JavaScript Basics">
+    <!-- Upload Quiz Section -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
+        <div class="flex items-center space-x-3 mb-6">
+            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                <i data-lucide="upload" class="w-5 h-5 text-white"></i>
+            </div>
+            <h2 class="text-xl font-bold text-gray-900">Upload New Quiz</h2>
+        </div>
+        
+        <form method="POST" action="{{ url_for('admin.upload') }}" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
+                        Quiz Title *
+                    </label>
+                    <input type="text" id="title" name="title" required
+                           class="block w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                           placeholder="e.g., JavaScript Basics">
+                </div>
+                
+                <div>
+                    <label for="timer_minutes" class="block text-sm font-medium text-gray-700 mb-2">
+                        Timer (minutes) *
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="clock" class="w-5 h-5 text-gray-400"></i>
+                        </div>
+                        <input type="number" id="timer_minutes" name="timer_minutes" value="30" min="1" max="180" required
+                               class="block w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                    </div>
+                </div>
             </div>
             
-            <div class="form-group">
-                <label for="timer_minutes">Timer (minutes) *</label>
-                <input type="number" id="timer_minutes" name="timer_minutes" value="30" min="1" max="180" required>
+            <div>
+                <label for="format" class="block text-sm font-medium text-gray-700 mb-2">
+                    Format *
+                </label>
+                <select id="format" name="format"
+                        class="block w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                    <option value="yaml">YAML Format</option>
+                    <option value="gift">GIFT Format</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="content" class="block text-sm font-medium text-gray-700 mb-2">
+                    Quiz Content *
+                </label>
+                <textarea id="content" name="content" rows="12" required
+                          class="block w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none font-mono text-sm"
+                          placeholder="Paste your YAML or GIFT format questions here..."></textarea>
+            </div>
+            
+            <button type="submit" 
+                    class="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-lg font-medium hover:from-green-700 hover:to-green-600 transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-[1.02]">
+                <i data-lucide="upload" class="w-5 h-5 mr-2"></i>
+                <span>Upload Quiz</span>
+            </button>
+        </form>
+    </div>
+
+    <!-- Existing Quizzes -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-8">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i data-lucide="book-open" class="w-5 h-5 text-white"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-900">Existing Quizzes ({{ quizzes|length }})</h2>
             </div>
         </div>
         
-        <div class="form-group">
-            <label for="format">Format *</label>
-            <select id="format" name="format">
-                <option value="yaml">YAML</option>
-                <option value="gift">GIFT</option>
-            </select>
+        {% if quizzes %}
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b border-gray-200">
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Title</th>
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Questions</th>
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Timer</th>
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Created</th>
+                        <th class="text-right py-3 px-4 text-sm font-semibold text-gray-700">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for quiz in quizzes %}
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="py-3 px-4">
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="file-text" class="w-4 h-4 text-gray-400"></i>
+                                <span class="font-medium text-gray-900">{{ quiz.title }}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 text-gray-600">{{ quiz.questions|length }}</td>
+                        <td class="py-3 px-4 text-gray-600">{{ quiz.timer_minutes }} min</td>
+                        <td class="py-3 px-4 text-gray-600">{{ quiz.created_at[:10] }}</td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center justify-end space-x-2">
+                                <a href="{{ url_for('quiz.start', quiz_id=quiz.id) }}" 
+                                   class="inline-flex items-center px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors">
+                                    <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+                                    <span>Preview</span>
+                                </a>
+                                <form method="POST" action="{{ url_for('admin.delete', quiz_id=quiz.id) }}" class="inline">
+                                    <button type="submit" 
+                                            onclick="return confirm('Delete this quiz and all its results?')"
+                                            class="inline-flex items-center px-3 py-1.5 bg-red-50 text-red-600 rounded-lg text-sm font-medium hover:bg-red-100 transition-colors">
+                                        <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>
+                                        <span>Delete</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+                <i data-lucide="inbox" class="w-8 h-8 text-gray-400"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">No quizzes yet</h3>
+            <p class="text-gray-600 text-sm">Upload your first quiz using the form above</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Recent Results -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5 text-white"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-900">Recent Results ({{ results|length }})</h2>
+            </div>
         </div>
         
-        <div class="form-group">
-            <label for="content">Quiz Content *</label>
-            <textarea id="content" name="content" rows="15" required placeholder="Paste your YAML or GIFT format questions here..."></textarea>
+        {% if results %}
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead>
+                    <tr class="border-b border-gray-200">
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Quiz</th>
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Score</th>
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Percentage</th>
+                        <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                    {% for result in results %}
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="py-3 px-4 text-gray-900">{{ result.quiz_title }}</td>
+                        <td class="py-3 px-4">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                {{ result.score }} / {{ result.total }}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4">
+                            {% if result.percentage >= 70 %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                <i data-lucide="check-circle" class="w-3 h-3 mr-1"></i>
+                                {{ result.percentage }}%
+                            </span>
+                            {% else %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                <i data-lucide="x-circle" class="w-3 h-3 mr-1"></i>
+                                {{ result.percentage }}%
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-4 text-gray-600 text-sm">{{ result.taken_at[:16] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+                <i data-lucide="bar-chart-3" class="w-8 h-8 text-gray-400"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">No results yet</h3>
+            <p class="text-gray-600 text-sm">Results will appear here once quizzes are taken</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Format Examples -->
+    <div class="mt-8 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200 p-6">
+        <div class="flex items-center space-x-3 mb-4">
+            <i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+            <h3 class="text-lg font-semibold text-gray-900">Format Examples</h3>
         </div>
         
-        <button type="submit" class="btn btn-success btn-block">📤 Upload Quiz</button>
-    </form>
-</div>
-
-<div class="admin-section">
-    <h2>📚 Existing Quizzes ({{ quizzes|length }})</h2>
-    {% if quizzes %}
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Questions</th>
-                    <th>Timer</th>
-                    <th>Created</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for quiz in quizzes %}
-                <tr>
-                    <td><strong>{{ quiz.title }}</strong></td>
-                    <td>{{ quiz.questions|length }}</td>
-                    <td>{{ quiz.timer_minutes }} min</td>
-                    <td>{{ quiz.created_at[:10] }}</td>
-                    <td>
-                        <a href="{{ url_for('quiz.start', quiz_id=quiz.id) }}" class="btn btn-sm btn-primary">Preview</a>
-                        <form method="POST" action="{{ url_for('admin.delete', quiz_id=quiz.id) }}" style="display: inline;">
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this quiz and all its results?')">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% else %}
-    <div class="empty-state">
-        <div class="empty-state-icon">📝</div>
-        <p>No quizzes yet. Upload one above!</p>
-    </div>
-    {% endif %}
-</div>
-
-<div class="admin-section">
-    <h2>📊 Recent Results ({{ results|length }})</h2>
-    {% if results %}
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Quiz</th>
-                    <th>Score</th>
-                    <th>Percentage</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for result in results %}
-                <tr>
-                    <td>{{ result.quiz_title }}</td>
-                    <td>{{ result.score }} / {{ result.total }}</td>
-                    <td class="{% if result.percentage >= 70 %}text-success{% else %}text-danger{% endif %}">
-                        {{ result.percentage }}%
-                    </td>
-                    <td>{{ result.taken_at[:16] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% else %}
-    <div class="empty-state">
-        <div class="empty-state-icon">📊</div>
-        <p>No results yet.</p>
-    </div>
-    {% endif %}
-</div>
-
-<div class="help-section">
-    <h3>📝 Format Examples</h3>
-    <details>
-        <summary>YAML Format</summary>
-        <pre>- question: "What is 2 + 2?"
+        <div class="space-y-4">
+            <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors">
+                    <span class="font-medium text-gray-900">YAML Format Example</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <div class="mt-3 p-4 bg-gray-900 rounded-lg">
+                    <pre class="text-sm text-gray-100 overflow-x-auto"><code>- question: "What is 2 + 2?"
   options:
     - "3"
     - "4"
     - "5"
   correct: 1
 
-- question: "Code example:\n```python\nprint('Hello')\n```\nWhat does this print?"
+- question: "What is the capital of France?"
   options:
-    - "Hello"
-    - "World"
-  correct: 0</pre>
-    </details>
-    
-    <details>
-        <summary>GIFT Format</summary>
-        <pre>::Q1:: What is 2 + 2?{
+    - "London"
+    - "Paris"
+    - "Berlin"
+  correct: 1</code></pre>
+                </div>
+            </details>
+            
+            <details class="group">
+                <summary class="flex items-center justify-between cursor-pointer p-4 bg-white rounded-lg hover:bg-gray-50 transition-colors">
+                    <span class="font-medium text-gray-900">GIFT Format Example</span>
+                    <i data-lucide="chevron-down" class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform"></i>
+                </summary>
+                <div class="mt-3 p-4 bg-gray-900 rounded-lg">
+                    <pre class="text-sm text-gray-100 overflow-x-auto"><code>::Q1:: What is 2 + 2?{
 =4
 ~3
 ~5
 }
 
-::Q2:: Code example:\n```python\nprint('Hello')\n```\nWhat does this print?{
-=Hello
-~World
-}</pre>
-    </details>
+::Q2:: What is the capital of France?{
+=Paris
+~London
+~Berlin
+}</code></pre>
+                </div>
+            </details>
+        </div>
+    </div>
 </div>
 
-<style>
-.badge {
-    display: inline-block;
-    background: var(--danger);
-    color: white;
-    border-radius: 12px;
-    padding: 2px 8px;
-    font-size: 12px;
-    font-weight: 600;
-    margin-left: 5px;
-}
-</style>
+<script>
+    lucide.createIcons();
+</script>
 {% endblock %}

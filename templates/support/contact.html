@@ -3,127 +3,192 @@
 {% block title %}Contact Us - QuizFlow{% endblock %}
 
 {% block content %}
-<div class="contact-page">
-    <div class="contact-header">
-        <h1>📧 Get in Touch</h1>
-        <p class="contact-subtitle">Have questions, feedback, or suggestions? We'd love to hear from you!</p>
+<div class="max-w-6xl mx-auto animate-fade-in">
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Have questions, feedback, or suggestions? We'd love to hear from you!
+        </p>
     </div>
 
-    <div class="contact-grid">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Contact Form -->
-        <div class="contact-form-card">
-            <h2>Send us a Message</h2>
-            <form method="POST" class="contact-form">
-                <div class="form-group">
-                    <label for="name">Your Name *</label>
-                    <input type="text" id="name" name="name" required placeholder="John Doe">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address *</label>
-                    <input type="email" id="email" name="email" required placeholder="john@example.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="subject">Subject *</label>
-                    <select id="subject" name="subject" required>
-                        <option value="">Select a subject...</option>
-                        <option value="General Inquiry">General Inquiry</option>
-                        <option value="Technical Issue">Technical Issue</option>
-                        <option value="Feature Request">Feature Request</option>
-                        <option value="Quiz Content">Quiz Content Suggestion</option>
-                        <option value="Donation Query">Donation Query</option>
-                        <option value="Partnership">Partnership Opportunity</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Your Message *</label>
-                    <textarea id="message" name="message" rows="6" required 
-                              placeholder="Tell us what's on your mind..."></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-block">
-                    <span>📤</span> Send Message
-                </button>
-            </form>
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-8">
+                <h2 class="text-2xl font-semibold text-gray-900 mb-6">Send us a Message</h2>
+                
+                <form method="POST" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                                Your Name *
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                                <input type="text" id="name" name="name" required
+                                       class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                       placeholder="John Doe">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                Email Address *
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-lucide="mail" class="w-5 h-5 text-gray-400"></i>
+                                </div>
+                                <input type="email" id="email" name="email" required
+                                       class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                       placeholder="john@example.com">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">
+                            Subject *
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i data-lucide="tag" class="w-5 h-5 text-gray-400"></i>
+                            </div>
+                            <select id="subject" name="subject" required
+                                    class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                <option value="">Select a subject...</option>
+                                <option value="General Inquiry">General Inquiry</option>
+                                <option value="Technical Issue">Technical Issue</option>
+                                <option value="Feature Request">Feature Request</option>
+                                <option value="Quiz Content">Quiz Content Suggestion</option>
+                                <option value="Donation Query">Donation Query</option>
+                                <option value="Partnership">Partnership Opportunity</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
+                            Your Message *
+                        </label>
+                        <textarea id="message" name="message" rows="6" required
+                                  class="block w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+                                  placeholder="Tell us what's on your mind..."></textarea>
+                    </div>
+                    
+                    <button type="submit" 
+                            class="w-full inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-medium hover:from-blue-700 hover:to-blue-600 transition-all duration-200 shadow-sm hover:shadow-md transform hover:scale-[1.02]">
+                        <i data-lucide="send" class="w-5 h-5 mr-2"></i>
+                        <span>Send Message</span>
+                    </button>
+                </form>
+            </div>
         </div>
 
-        <!-- Contact Info & FAQ -->
-        <div class="contact-info-section">
+        <!-- Sidebar -->
+        <div class="space-y-6">
             <!-- Quick Info -->
-            <div class="info-card">
-                <h3>💬 Quick Info</h3>
-                <div class="info-list">
-                    <div class="info-item">
-                        <span class="info-icon">⏱️</span>
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Info</h3>
+                <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0 w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                            <i data-lucide="clock" class="w-5 h-5 text-blue-600"></i>
+                        </div>
                         <div>
-                            <strong>Response Time</strong>
-                            <p>We typically respond within 24-48 hours</p>
+                            <p class="font-medium text-gray-900">Response Time</p>
+                            <p class="text-sm text-gray-600">Within 24-48 hours</p>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-icon">🌍</span>
+                    
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0 w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center">
+                            <i data-lucide="globe" class="w-5 h-5 text-green-600"></i>
+                        </div>
                         <div>
-                            <strong>Location</strong>
-                            <p>Based in India, serving globally</p>
+                            <p class="font-medium text-gray-900">Location</p>
+                            <p class="text-sm text-gray-600">Based in India</p>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <span class="info-icon">💖</span>
+                    
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0 w-10 h-10 bg-pink-50 rounded-lg flex items-center justify-center">
+                            <i data-lucide="heart" class="w-5 h-5 text-pink-600"></i>
+                        </div>
                         <div>
-                            <strong>Support Us</strong>
-                            <p><a href="{{ url_for('support.donate') }}">Consider donating</a></p>
+                            <p class="font-medium text-gray-900">Support Us</p>
+                            <a href="{{ url_for('support.donate') }}" class="text-sm text-blue-600 hover:text-blue-700">
+                                Consider donating →
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- FAQ -->
-            <div class="info-card">
-                <h3>❓ Frequently Asked</h3>
-                <div class="faq-list">
-                    <details class="faq-item">
-                        <summary>How do I report a bug?</summary>
-                        <p>Use the contact form above and select "Technical Issue" as the subject. 
-                           Please include as much detail as possible.</p>
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Common Questions</h3>
+                <div class="space-y-3">
+                    <details class="group">
+                        <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors">
+                            <span>How do I report a bug?</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="mt-2 text-sm text-gray-600 pl-1">
+                            Use the contact form and select "Technical Issue" as the subject. Please include details.
+                        </p>
                     </details>
-                    <details class="faq-item">
-                        <summary>Can I contribute quiz content?</summary>
-                        <p>Yes! We welcome quality quiz content. Contact us with your ideas and 
-                           we'll discuss how to collaborate.</p>
+                    
+                    <details class="group">
+                        <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors">
+                            <span>Can I contribute content?</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="mt-2 text-sm text-gray-600 pl-1">
+                            Yes! Contact us with your ideas and we'll discuss collaboration opportunities.
+                        </p>
                     </details>
-                    <details class="faq-item">
-                        <summary>Is QuizFlow really free?</summary>
-                        <p>Yes! QuizFlow is completely free for all users. We're supported by 
-                           generous donations from our community.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>How can I support QuizFlow?</summary>
-                        <p>You can support us by <a href="{{ url_for('support.donate') }}">donating</a>, 
-                           sharing with friends, or providing feedback!</p>
+                    
+                    <details class="group">
+                        <summary class="flex items-center justify-between cursor-pointer text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors">
+                            <span>Is QuizFlow free?</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 group-open:rotate-180 transition-transform"></i>
+                        </summary>
+                        <p class="mt-2 text-sm text-gray-600 pl-1">
+                            Yes! QuizFlow is completely free, supported by community donations.
+                        </p>
                     </details>
                 </div>
             </div>
 
-            <!-- Social Links (Optional) -->
-            <div class="info-card social-card">
-                <h3>🔗 Connect With Us</h3>
-                <div class="social-links">
-                    <a href="#" class="social-link" title="Twitter">
-                        <span class="social-icon">🐦</span> Twitter
+            <!-- Social Links -->
+            <div class="bg-gradient-to-br from-violet-600 to-purple-600 rounded-xl shadow-sm p-6 text-white">
+                <h3 class="text-lg font-semibold mb-4">Connect With Us</h3>
+                <div class="space-y-2">
+                    <a href="#" class="flex items-center space-x-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors backdrop-blur-sm">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                        <span class="text-sm font-medium">Twitter</span>
                     </a>
-                    <a href="#" class="social-link" title="GitHub">
-                        <span class="social-icon">💻</span> GitHub
+                    <a href="#" class="flex items-center space-x-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors backdrop-blur-sm">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                        <span class="text-sm font-medium">GitHub</span>
                     </a>
-                    <a href="#" class="social-link" title="LinkedIn">
-                        <span class="social-icon">💼</span> LinkedIn
+                    <a href="#" class="flex items-center space-x-3 p-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors backdrop-blur-sm">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        <span class="text-sm font-medium">LinkedIn</span>
                     </a>
                 </div>
-                <p class="social-note">Coming soon! Follow us for updates.</p>
+                <p class="text-xs text-white/70 mt-4 text-center">Coming soon!</p>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    lucide.createIcons();
+</script>
 {% endblock %}
