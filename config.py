@@ -1,5 +1,9 @@
 import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
+
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key-change-this-in-production'
     DATABASE_PATH = os.path.join(os.path.dirname(__file__), 'quiz_app.db')

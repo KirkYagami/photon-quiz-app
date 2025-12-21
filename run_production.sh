@@ -21,7 +21,7 @@ gunicorn \
     --max-requests-jitter 100 \
     --timeout 120 \
     --graceful-timeout 30 \
-    --keepalive 5 \
+    --keep-alive 5 \
     --access-logfile - \
     --error-logfile - \
     --log-level info \
